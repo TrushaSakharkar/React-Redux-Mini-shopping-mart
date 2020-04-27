@@ -3,6 +3,8 @@ import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css"
 import Navbar from './navbar.component'
 import { connect } from "react-redux";
+import {NotificationContainer, NotificationManager} from 'react-notifications';
+import 'react-notifications/lib/notifications.css';
 
 
 
@@ -17,6 +19,11 @@ class Seemore extends Component {
     }
     onChangeEdit(event) {
         this.setState({ edit: event.target.value });
+    }
+    notif(){
+        console.log("dhfbsdjgn");
+        NotificationManager.success('', 'Added to cart', 3000);
+      
     }
     render(){
         var letterStyle = {
@@ -33,6 +40,8 @@ class Seemore extends Component {
 
             <div>
                 <Navbar/>
+                <NotificationContainer/>
+
                 <div>
                 </div>
             {this.props.st.map((curr)=>{
@@ -70,7 +79,9 @@ class Seemore extends Component {
                             </div>
                             <br/>
                             <div>
-                            <button class="rounded-pill btn btn-dark" onClick={e => this.props.cart1(curr.sr)}>
+                            <button class="rounded-pill btn btn-dark" onClick={e => {
+                                                                             this.notif()
+                                                                            this.props.cart1(curr.sr)}}>
                                                  Add to Cart</button> 
                                                  </div>
                             </center>

@@ -8,7 +8,6 @@ import Mycart from './components/mycart.component'
 import Welcome from './components/welcome.component'
 import Seemore from './components/seemore.component'
 import Bye from './components/bye.component'
- import Notification from './components/notification.component'
 
 function App() {
   return (
@@ -18,7 +17,6 @@ function App() {
      <Route path='/mycart' exact component={Mycart}/>
      <Route path='/seemore' exact component={Seemore}/>
      <Route path='/bye' exact component={Bye}/>
-     <Route path='/notification' exact component={Notification}/>
      {/* <Route path='/' component={Navbar}/> */}
      <Route path='/' exact component={Welcome}/>
    </Router>

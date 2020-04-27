@@ -3,6 +3,11 @@ import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css"
 import Navbar from './navbar.component'
 import { connect } from "react-redux";
+import {NotificationContainer, NotificationManager} from 'react-notifications';
+import 'react-notifications/lib/notifications.css';
+import Col from 'react-bootstrap/Col';
+import Image from 'react-bootstrap/Image';
+import Row from 'react-bootstrap/Row';
 
 
 class Mycart extends Component {
@@ -23,6 +28,11 @@ class Mycart extends Component {
     onChangeEdit(event) {
         this.setState({ edit: event.target.value });
     }
+    notif(e){
+        console.log("dhfbsdjgn");
+        NotificationManager.error('', 'Removed from cart', 3000);
+        this.props.remove(e)
+    }
     render(){
         var t=localStorage.getItem("total");
         const t1=JSON.parse(t);
@@ -30,6 +40,8 @@ class Mycart extends Component {
                   
                     <div>
                         <Navbar/>
+                        <NotificationContainer/>
+
                         <table className="table table-striped">
                             <thead>
                                 <tr>
@@ -37,6 +49,7 @@ class Mycart extends Component {
                                     <th>Product name</th>
                                     <th>Price</th>
                                     <th>Quantity</th>
+                                    <th></th>
                                     <th>Edit Quantity</th>
                                     <th>Remove</th>
                                 </tr>
@@ -56,6 +69,13 @@ class Mycart extends Component {
                                                  <td>{curr.name}</td>
                                                  <td>{curr.price}</td>
                                                   <td>{object1[curr.sr-1].quantity}</td> 
+                                                  <td>
+                                                    <Row>
+                                                    <Col xs={1} md={1}>
+                                                    <Image src={curr.image} thumbnail />
+                                                    </Col>
+                                                    </Row>
+                                                </td>
                                                  <td>
                                                  <input type="number" 
                                                         id="edit" 
@@ -68,7 +88,8 @@ class Mycart extends Component {
                                                          Edit</button> 
                                                 </td>
                                                 <td>
-                                                         <button class="rounded-pill btn btn-dark" onClick={e => this.props.remove(curr.sr)}>
+
+                                                         <button class="rounded-pill btn btn-dark" onClick={e =>  this.notif(curr.sr)}>
                                                              Remove</button> 
                                                  </td>
                                              </tr>

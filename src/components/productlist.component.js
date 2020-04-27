@@ -2,9 +2,15 @@ import React,{Component} from 'react';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css"
 import Navbar from './navbar.component'
-import Notification from './notification.component'
 import { connect } from "react-redux";
-
+import Image from 'react-bootstrap/Image';
+import Container from 'react-bootstrap/Container';
+import Col from 'react-bootstrap/Col';
+import Card from 'react-bootstrap/Card';
+import Button from 'react-bootstrap/Button';
+import Row from 'react-bootstrap/Row';
+import {NotificationContainer, NotificationManager} from 'react-notifications';
+import 'react-notifications/lib/notifications.css';
 
 class Productlist extends Component {
 
@@ -18,23 +24,19 @@ class Productlist extends Component {
         localStorage.setItem("Page",o);
         window.location="/seemore"
     }
+    notif(e){
+        console.log("dhfbsdjgn");
+        NotificationManager.success('', 'Added to cart', 3000);
+      
+    }
     render(){
         return(
           
             <div>
                 <Navbar/>
-                <table className="table table-striped">
-                    <thead>
-                        <tr>
-                            <th>Sr.No</th>
-                            <th>Product name</th>
-                            <th>Price</th>
-                            <th>Add to Cart</th>
-                            <th>See More</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-
+                <NotificationContainer/>
+                <Container>
+                    <Row>
                         {
                             this.props.st.map((curr)=>
                             {
@@ -44,26 +46,44 @@ class Productlist extends Component {
                                 if(curr.sr>0 && object1[curr.sr-1].cart===0)
                                 {
                                  return(
-                                     <tr>
-                                         <td>{curr.sr}</td>
-                                         <td>{curr.name}</td>
-                                         <td>{curr.price}</td>
-                                         <td>
-                                             <button class="rounded-pill btn btn-dark" onClick={e => this.props.cart1(curr.sr)}>
-                                                 Add to Cart</button> 
-                                        </td>
-                                        <td>
-                                                 <button class="rounded-pill btn btn-dark" onClick={e => this.call(curr.sr)}>
-                                                     See More</button> 
-                                         </td>
-                                     </tr>
+                    <Col>
+
+                                    <Card
+                                      bg={"secondary"}
+                                      style={{ width: '18rem' }}>
+                                 <Card.Header as="h5">{curr.name}</Card.Header>
+                                    <Card.Body>
+                                      <Card.Title>Rs {curr.price}</Card.Title>
+                                      <Row>
+                                            <Col xs={3} md={3}>
+                                            <Image src={curr.image} thumbnail />
+                                            </Col>
+                                            </Row>
+                                      <Card.Text>
+                                      </Card.Text>
+                                      <button class="rounded-pill btn btn-dark" onClick={e => {
+                                                                        this.notif()
+                                                                         this.props.cart1(curr.sr)
+                                                                        }}>
+                                    Add To Cart
+                                      </button>
+                                      <p>    </p>
+
+                                      <button class="rounded-pill btn btn-dark" onClick={e => {
+                                                                        this.call(curr.sr)
+                                                                        }}>
+                                    See More
+                                      </button>
+                                    </Card.Body>
+                                  </Card>
+                                    </Col>
                                     )
                                  }
                         }
                 )
                 }
-            </tbody>
-            </table>
+                </Row>
+                </Container>
             </div>
 
         )

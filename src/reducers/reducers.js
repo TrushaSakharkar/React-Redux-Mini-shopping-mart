@@ -11,12 +11,10 @@ export function reducer1 (state,action){
             case "ALL":
                 return state
             case "CART":
-                alert("Added to cart")
                 return reducer(state,action)
             case "EDIT":
                 return reducer(state,action)
             case "REMOVE":
-                alert("Removed from cart")
                 return reducer(state,action)
             default:
                 return state
@@ -68,6 +66,7 @@ export function reducePost(post,action){
                 de=0;
             }
             object[post.sr-1].cart=0;
+            object[post.sr-1].quantity=0;
             var df=JSON.stringify(de);
             var object1=JSON.stringify(object);
             localStorage.setItem("total",df);
